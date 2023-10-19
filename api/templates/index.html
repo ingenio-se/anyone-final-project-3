@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Hospitalization Prediction</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body class="bg-1">
+<img id="fondo" src="{{ url_for('static', filename='images/logo-anyone.webp') }}">
+<div class="container-fluid p-5  text-white text-center">
+  <h1><span class="letra1">Hospitalization Prediction for Elderly Population</span></h1>
+  
+</div>
+
+<form action="/process" method="post">
+<div class="container mt-5 ">
+  <div class="row">
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Personal data
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-sm-4">
+                    <div class="mb-3 mt-3">
+                        <label for="weight" class="form-label">Weight (kg)</label>
+                        <input type="number" class="form-control" id="weight" placeholder="" name="weight" min="0" value="0">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="mb-3 mt-3">
+                        <label for="height" class="form-label">Height (mt)</label>
+                        <input type="text" class="form-control" id="height" placeholder="" name="height" value="0">
+                      </div>    
+                </div>
+                <!--<div class="col-sm-4">
+                    <div class="mb-3 mt-3">
+                        <label for="weight" class="form-label">BMI (kg/mt^2)</label>
+                        <input type="number" class="form-control" id="bmi" placeholder="" name="bmi" min="0" readonly>
+                      </div>    
+                </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Activities of daily living (ADL)
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <p><strong>Do you have any difficulty for doing the following activities? (check all the ones that apply):</strong></p>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="bath" name="bath" value="1">
+                <label class="form-check-label">Bath</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="dress" name="dress" value="1">
+                <label class="form-check-label">Get dressed</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="eat" name="eat" value="1">
+                <label class="form-check-label">Eat</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="bed" name="bed" value="1">
+                <label class="form-check-label">Get in and out of bed</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="walk" name="walk" value="1">
+                <label class="form-check-label">Walk</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="toilet" name="toilet" value="1">
+                <label class="form-check-label">Use the toilet</label>
+              </div><br>
+              <p><strong>How is your sight?</strong></p>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="radio1" name="sight" value="1" >Excellent
+                <label class="form-check-label" for="radio1"></label>
+              </div>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="radio2" name="sight" value="2">Very good
+                <label class="form-check-label" for="radio2"></label>
+              </div>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="radio3" name="sight" value="3">Good
+                <label class="form-check-label" for="radio3"></label>
+              </div>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="radio4" name="sight" value="4">Fair
+                <label class="form-check-label" for="radio4"></label>
+              </div>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="radio5" name="sight" value="5">Poor
+                <label class="form-check-label" for="radio5"></label>
+              </div>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="radio6" name="sight" value="6">Legally blind
+                <label class="form-check-label" for="radio6"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingIADL">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIADL" aria-expanded="false" aria-controls="collapseIADL">
+                Instrumental activities of daily living (IADL)
+              </button>
+            </h2>
+            <div id="collapseIADL" class="accordion-collapse collapse" aria-labelledby="headingIADL" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p><strong>Do you have any difficulty for doing the following activities? (check all the ones that apply):</strong> </p>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="money" name="money" value="1">
+                  <label class="form-check-label">Managing money</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="meds" name="meds" value="1">
+                  <label class="form-check-label">Taking medications</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="shop" name="shop" value="1">
+                  <label class="form-check-label">Doing groceries shopping</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="meals" name="meals" value="1">
+                  <label class="form-check-label">Preparing hot meals</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="lift" name="lift" value="1">
+                  <label class="form-check-label">Lifting/carrying 5 kgs</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="pusha" name="pusha" value="1">
+                  <label class="form-check-label">Pushing/pulling large objects</label>
+                </div>
+  
+              </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Previous 2 years information
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="cholst" class="form-label">Have you made preventative cholesterol tests in the last two years?</label>
+                            <select class="form-control" id="cholst" name="cholst">
+                                <option value=""></option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="cholst" class="form-label">Number of times you had fallen down in the last two years</label>
+                            <input type="number" class="form-control" id="fallnum" placeholder="" name="fallnum" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p><strong>How is your health compared to two years ago?</strong></p>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="radio1" name="hltc" value="1" >Much better
+                            <label class="form-check-label" for="radio1"></label>
+                          </div>
+                          <div class="form-check">
+                            <input type="radio" class="form-check-input" id="radio2" name="hltc" value="2">Somewhat better
+                            <label class="form-check-label" for="radio2"></label>
+                          </div>
+                          <div class="form-check">
+                            <input type="radio" class="form-check-input" id="radio3" name="hltc" value="3">More or less the same
+                            <label class="form-check-label" for="radio3"></label>
+                          </div>
+                          <div class="form-check">
+                            <input type="radio" class="form-check-input" id="radio4" name="hltc" value="4">Somewhat worse
+                            <label class="form-check-label" for="radio4"></label>
+                          </div>
+                          <div class="form-check">
+                            <input type="radio" class="form-check-input" id="radio5" name="hltc" value="5">Much worse
+                            <label class="form-check-label" for="radio5"></label>
+                          </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                Previous 12 months information
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="dentim1y" class="form-label">Number of dental visits in the previous 12 months</label>
+                            <input type="number" class="form-control" id="dentim1y" placeholder="" name="dentim1y" min="0" value="0">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="oopden1y" class="form-label">Total out of pocket dentist expenditures in the previous 12 months (pesos)</label>
+                            <input type="number" class="form-control" id="oopden1y" placeholder="" name="oopden1y" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="doctim1y" class="form-label">Number of doctor visits in the previous 12 months</label>
+                            <input type="number" class="form-control" id="doctim1y" placeholder="" name="doctim1y" min="0" value="0">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="oopdoc1y" class="form-label">Total out of pocket doctor expenditures in the previous 12 months (pesos)</label>
+                            <input type="number" class="form-control" id="oopdoc1y" placeholder="" name="oopdoc1y" min="0" value="0">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="oopmd1y" class="form-label">Total out of pocket medical expenditures in the previous 12 months (pesos)</label>
+                            <input type="number" class="form-control" id="oopmd1y" placeholder="" name="oopmd1y" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFam">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFam" aria-expanded="false" aria-controls="collapseFam">
+                Familiy
+              </button>
+            </h2>
+            <div id="collapseFam" class="accordion-collapse collapse" aria-labelledby="headingFam" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="decsib" class="form-label">Number of deceased siblings</label>
+                            <input type="number" class="form-control" id="decsib" placeholder="" name="decsib" min="0" value="0">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 mt-3">
+                            <label for="oopden1y" class="form-label">Mother's age at death</label>
+                            <input type="number" class="form-control" id="momage" placeholder="" name="momage" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-block">Send</button>
+    </div>
+</div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+.bg-1{
+    background-color: #172c56;
+}
+
+.letra1{
+    color: #78efd5;
+}
+
+.bg-2{
+    background-image: url('../images/logo-anyone.png');
+}
+#fondo{
+    z-index:-9999;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
